@@ -1,0 +1,56 @@
+# Vzorové rozložení
+#
+# sloupce: (označení klávesy) (přímo) (se Shiftem) (+AltGr) (+AltGr+Shift)
+#
+~   ~   ~   nic nic
+!   1   !   nic nic
+@   2   @   nic nic
+#   3   #   nic nic
+$   4   $   nic nic
+%   5   %   nic nic
+^   6   ^   nic nic
+&   7   &   nic nic
+*   8   *   nic nic
+(   9   (   nic nic
+)   0   )   nic nic
+_   _   _   nic nic
++   +   -   nic nic
+
+Q   q   Q   \   nic
+W   w   W   |   nic
+E   e   E   nic nic
+R   r   R   nic nic
+T   t   T   nic nic
+Y   z   Z   nic nic
+U   u   U   nic nic
+I   i   I   nic nic
+O   o   O   nic nic
+P   p   P   nic nic
+[   ú   /   nic nic
+]   nic nic nic nic
+
+A   a   A   nic nic
+S   s   S   nic nic
+D   d   D   nic nic
+F   f   F   nic nic
+G   g   G   nic nic
+H   h   H   nic nic
+J   j   J   nic nic
+K   k   K   nic nic
+L   l   L   nic nic
+:   :   ;   nic nic
+"   '   "   nic nic
+\   \   |   nic nic # Umístění této klávesy se na různých klávesnicích liší
+
+Z   y   Y   nic nic
+X   x   X   nic nic
+C   c   C   nic nic
+V   v   V   nic nic
+B   b   B   nic nic
+N   n   N   nic nic
+M   m   M   nic nic
+<   <   <   nic nic
+>   >   >   nic nic
+?   ?   .   nic nic
+
+MEZ \_  \_  \_  \_
