@@ -53,9 +53,9 @@ V uvedeném případě klávesa Y (podle anglického rozložení − to znamen�
 
 Spusťte tyto příkazy a kontrolujte, zda při nich nenastaly chyby:
 
-`bash zprac.sh &lt;vzor.txt &gt;faze1.txt`<br>
-`gawk -f zprac.awk faze1.txt &gt;faze2.txt`<br>
-`gawk '/^xkb\_symbols "qwerty" \\{/ {p=1} !p {print} p &amp;&amp; /^\\};$/ {p = 0; system("cat vystup.txt");}' /usr/share/X11/xkb/symbols/cz &gt;cz`
+`bash zprac.sh <vzor.txt >faze1.txt`<br>
+`gawk -f zprac.awk faze1.txt >faze2.txt`<br>
+`gawk '/^xkb_symbols "qwerty" \{/ {p=1} !p {print} p && /^\};$/ {p = 0; system("cat vystup.txt");}' /usr/share/X11/xkb/symbols/cz >cz`
 
 Výstupem uvedených příkazů je soubor „cz“, který obsahuje vaše původní systémová
 česká rozložení klávesnice s tím, že rozložení „cz/qwerty“ je v něm přepsané
