@@ -45,7 +45,7 @@ Všechny sloupce musejí být vyplněny. Pokud nechcete, aby daná kombinace kl�
 
 Příklad (nesmyslný):
 
-    Y   q   \\  \_em    +°
+    Y   q   \  _em    +°
 
 V uvedeném případě klávesa Y (podle anglického rozložení − to znamená ta mezi klávesami T a U) normálně napíše „q“, se Shiftem napíše zpětné lomítko, s pravým Alt vypíše mezeru o šířce písmene M a se Shiftem a pravým Alt dohromady nevypíše nic, ale když po ní stisknete klávesu, která by normálně vypsala „u“, vypíše se pak „ů“. (Snad tušíte proč.)
 
@@ -67,7 +67,7 @@ zbytečně komplikované; přepsat stávající je snazší.
 
 Před tímto krokem doporučuji vytvořit si zálohu souboru „/usr/share/X11/xkb/symbols/cz“, abyste ho mohli v případě potřeby obnovit do původního tvaru.
 
-`sudo tee /usr/share/X11/xkb/symbols/cz &lt;cz &gt;/dev/null`
+`sudo tee /usr/share/X11/xkb/symbols/cz <cz >/dev/null`
 
 ## 4. Jednorázově rozložení aktivovat a vyzkoušet
 
