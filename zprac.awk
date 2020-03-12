@@ -190,8 +190,8 @@ BEGIN {
     #print "partial alphanumeric_keys";
     print "xkb_symbols \"qwerty\" {";
     print "";
-    print "include \"cz(basic)\"";
-    print "name[Group1]= \"Czech (QWERTY)\";";
+    print "    include \"cz(basic)\"";
+    print "    name[Group1]= \"Czech (QWERTY)\";";
     print "";
 }
 
