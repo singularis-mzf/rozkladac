@@ -3,16 +3,16 @@
 # sloupce: (označení klávesy) (přímo) (se Shiftem) (+AltGr) (+AltGr+Shift)
 #
 ~   ~   ~   nic nic
-!   1   !   nic nic
-@   2   @   nic nic
-#   3   #   nic nic
-$   4   $   nic nic
-%   5   %   nic nic
-^   6   ^   nic nic
-&   7   &   nic nic
-*   8   *   nic nic
-(   9   (   nic nic
-)   0   )   nic nic
+1   1   !   nic nic
+2   2   @   nic nic
+3   3   #   nic nic
+4   4   $   nic nic
+5   5   %   nic nic
+6   6   ^   nic nic
+7   7   &   nic nic
+8   8   *   nic nic
+9   9   (   nic nic
+0   0   )   nic nic
 _   _   _   nic nic
 +   +   -   nic nic
 

@@ -1,0 +1,56 @@
+# Moje rozložení
+#
+# sloupce: (označení klávesy) (přímo) (se Shiftem) (+AltGr) (+AltGr+Shift)
+#
+~   `   ~   °   +°
+1   1   !   nic ¹
+2   2   @   ě   ²
+3   3   #   š   ³
+4   4   $   č   ⁴
+5   5   %   ř   ⁵
+6   6   ^   ž   ⁶
+7   7   &   ý   ⁷
+8   8   *   á   ⁸
+9   9   (   í   ⁹
+0   0   )   é   ⁰
+_   -   _   ─   ═   # horozintální linky: jednoduchá/dvojitá
++   =   +   +'  +ˇ
+
+Q   q   Q   \   nic
+W   w   W   |   nic
+E   e   E   €   nic
+R   r   R   ¶   ®   # ¶ / symbol „registered“
+T   t   T   nic nic
+Y   y   Y   nic nic
+U   u   U   nic nic
+I   i   I   nic nic
+O   o   O   ö   Ö
+P   p   P   π   Π   # pí
+[   [   {   ú   Ú   # malé/velké ú
+]   ]   }   „   “   # také české uvozovky
+
+A   a   A   ä   Ä
+S   s   S   ß   nic # ß pro psaní v němčině
+D   d   D   nic nic
+F   f   F   nic nic
+G   g   G   nic nic
+H   h   H   nic nic
+J   j   J   nic nic
+K   k   K   nic nic
+L   l   L   –   —   # en-dash/em-dash
+:   ;   :   ů   Ů   # malé/velké ů
+"   '   "   §   !
+\   \   |   +"  '   # Umístění této klávesy se na různých klávesnicích liší
+
+Z   z   Z   °   nic
+X   x   X   #   ×   # # / symbol „times“
+C   c   C   &   ©   # & / symbol „copyright“
+V   v   V   @   nic
+B   b   B   {   nic
+N   n   N   }   ≤   # } / menší nebo rovno
+M   m   M   ^   ≥   # ^ / větší nebo rovno
+<   ,   <   „   «   # české uvozovky (začátek)
+>   .   >   “   »   # české uvozovky (konec)
+?   /   ?   -   _
+
+MEZ _sp _nb _sp _nb
