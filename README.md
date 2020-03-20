@@ -62,8 +62,7 @@ V uvedeném případě klávesa Y (podle anglického rozložení − to znamen�
 
 Spusťte tyto příkazy a kontrolujte, zda při nich nenastaly chyby:
 
-`bash zprac.sh <vzor.txt >faze1.txt`<br>
-`gawk -f zprac.awk faze1.txt >faze2.txt`<br>
+`bash rozkladac.sh <vzor.txt >faze2.txt`<br>
 `gawk '/^xkb_symbols "qwerty" \{/ {p=1} !p {print} p && /^\};$/ {p = 0; system("cat faze2.txt");}' /usr/share/X11/xkb/symbols/cz >cz`
 
 Výstupem uvedených příkazů je soubor „cz“, který obsahuje vaše původní systémová
