@@ -1,9 +1,11 @@
 # Rozkladač klávesnice
 
-Nástroj pro vytváření vlastních rozložení klávesnice pro XOrg (Linux, např. Ubuntu) bez nutnosti technických znalostí.
+Nástroj pro vytváření vlastních rozložení klávesnice pro XOrg (linux, např. Ubuntu) bez nutnosti technických znalostí.
+Umožňuje na klávesy namapovat téměř libovolné znaky Unicode Character Set včetně většiny emoji.
 
 Aktuálně je vydána betaverze 1.0beta, určená především na Debian, Ubuntu a z nich odvozené distribuce.
-Vyžaduje Perl verze minimálně 5.26.
+Vyžaduje Perl verze minimálně 5.26 a jeho balíček English (v Ubuntu předinstalovaný, ve Fedoře 33 je
+nutno ``sudo dnf install perl-English``).
 
 Vyvoření a nastavení nového rozložení klávesnice s použitím Rozkladače klávesnice sestává z těchto kroků:
 
@@ -96,7 +98,7 @@ V adresáři se souborem „rozkladac“ spusťte tento příkaz (za názvy sou
 Pokud zpracování proběhlo úspěšně, byl vytvořen cílový soubor, který obsahuje rozložení klávesnice
 ve formátu, kterému rozumí váš systém. Toto rozložení je následně potřeba nainstalovat:
 
-`sudo tee /usr/share/X11/xkb/symbols/cz <cílový-soubor >/dev/null`
+`sudo install -T -m 644 cílový-soubor /usr/share/X11/xkb/symbols/cz`
 
 Dalším krokem je si je jednorázově vyzkoušet. Nové rozložení aktivujete příkazem:
 
@@ -106,12 +108,22 @@ Pokud se z nějakého důvodu budete potřebovat vrátit k normálnímu česk�
 
 `setxkbmap cz`
 
-Pokud budete chtít nové rozložení nastavit jako výchozí pro celý systém, musíte nastavit jako výchozí rozložení „Czech − Czech (QWERTY)“ (cz/qwerty). Na Ubuntu a od něj odvozených operačních systémech to uděláte tak, že zadáte příkaz `sudo dpkg-reconfigure keyboard-configuration` a v následujících oknech první dotaz potvrdíte beze změny, na druhé obrazovce vyberte volbu „Czech“, na třetí „Czech − Czech (QWERTY)“; zbylé dotazy potvrďte beze změny.
+Abyste nové rozložení nastavili jako výchozí pro celý systém, musíte nastavit jako výchozí rozložení „Czech − Czech (QWERTY)“ (cz/qwerty). Na Ubuntu a od něj odvozených operačních systémech to uděláte tak, že zadáte příkaz `sudo dpkg-reconfigure keyboard-configuration` a v následujících oknech první dotaz potvrdíte beze změny, na druhé obrazovce vyberte volbu „Czech“, na třetí „Czech − Czech (QWERTY)“; zbylé dotazy potvrďte beze změny.
 
-*Poznámka:* provedené změny se mohou ztratit s aktualizací systému, resp. jeho balíčků; v Debianu, Ubuntu apod. můžete aktualizaci rozložení klávesnic zakázat příkazem:
+*Poznámka:* upravené rozložení se může ztratit s aktualizací systému, resp. jeho balíčků; v Debianu, Ubuntu apod. můžete aktualizaci rozložení klávesnic zakázat příkazem:
 
 `sudo apt-mark hold xkb-data`
 
 Pokud byste někdy v budoucnu chtěli zákaz aktualizace zrušit, pomůže vám tento příkaz:
 
 `sudo apt-get reinstall xkb-data`
+
+## Další poznámky
+
+* Ačkoliv cílový soubor vytvořený Rozkladačem klávesnice může fungovat na více různých distribucích, není to zaručeno. Proto doporučuji nepřenášet vygenerovaný soubor mezi různými distribucemi a na každé distribuci spustit Rozkladač klávesnice znovu.
+
+## Tipy k tvorbě rozložení klávesnice
+
+Doporučuji se vyvarovat originality. Existující rozložení klávesnice jsou navržena víceméně rozumně, takže se vyplatí jich držet a spíš je jen opatrně „mixovat“
+než se snažit vymyslet zcela nové rozložení klávesnice. Pokud si zvyknete na netypické rozložení klávesnice, budete mít v budoucnu velké problémy s ovládáním
+systémů, kam si svoje rozložení nebudete moci nainstalovat, např. školních či firemních.
