@@ -13,7 +13,7 @@
 8   8   *   á   ⁸
 9   9   (   í   ⁹
 0   0   )   é   ⁰
-_   -   _   ─   ═   # horozintální linky: jednoduchá/dvojitá
+_   -   _   ─   ═   # horizontální linky: jednoduchá/dvojitá
 +   =   +   +'  +ˇ
 
 Q   q   Q   \   nic
