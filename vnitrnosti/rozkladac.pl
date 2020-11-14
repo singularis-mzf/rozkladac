@@ -149,6 +149,7 @@ my $řádek;
 my $číslo_řádku = 0;
 
 open($cz, "<&=3");
+binmode($cz, ":utf8");
 
 while (defined($řádek = readline($stdin)))
 {
