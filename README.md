@@ -1,31 +1,23 @@
 # Rozkladač klávesnice
 
-*(ROZPRACOVÁNO)*
-
 Nástroj pro vytváření vlastních rozložení klávesnice pro XOrg (Linux, např. Ubuntu) bez nutnosti technických znalostí.
 
-Rozkladač klávesnice zatím nemá příliš dobré uživatelské rozhraní, ale po funkční stránce už mu snad nic nechybí.
+Aktuálně je vydána betaverze 1.0beta, určená především na Debian, Ubuntu a z nich odvozené distribuce.
+Vyžaduje Perl verze minimálně 5.26.
 
 Vyvoření a nastavení nového rozložení klávesnice s použitím Rozkladače klávesnice sestává z těchto kroků:
 
-1. Otevřít v textovém editoru šablonu (vzor.txt) a nastavit požadované rozložení kláves.
-2. Spustit rozkladač, a tak vygenerovat soubor s rozložením klávesnice. (Pokud se objeví syntaktické či jiné chyby, budete je muset opravit a spustit rozkladač znovu.)
-3. Nainstalovat rozložení do systému.
-4. Jednorázově rozložení aktivovat a vyzkoušet.
-5. Nastavit nové rozložení jako výchozí systémové rozložení klávesnice. (Tento krok je volitelný.)
+1. Zkopírujte soubor [vzor.txt](ukazky/vzor.txt) a nastavte v kopii požadované rozložení kláves.
+2. Spusťte `./rozkladac zdrojový-soubor cílový-soubor` (do příkazu dosaďte odpovídající názvy)(Pokud se objeví syntaktické či jiné chyby, budete je muset opravit a spustit rozkladač znovu.)
+3. Použitím příkazů, které Rozkladač klávesnice vypíše, rozložení nainstalujete do systému a vyzkoušíte.
 
-Než se pustíte do experimentování, pár poznámek:
-
-* Tento software je zatím velmi nezralý, a tím pádem nespolehlivý. Netechnickým uživatelům doporučuji ho zkoušet pouze ve virtuálním počítači (kde nemůže způsobit žádnou škodu) nebo za asistence technicky zdatného uživatele, který bude schopen opravit, když se něco pokazí.
-* Rozkladač klávesnice je implementovaný tak, že přepisuje rozložení klávesnice „Czech (QWERTY)“. Vezměte to na vědomí, pokud toto rozložení klávesnice používáte.
-* Rozkladač klávesnice vyžaduje k běhu bash (ten téměř jistě máte) a GNU awk (balíček „gawk“ − ten možná budete muset doinstalovat). Do budoucna počítám s přepsáním do Perlu.
-* Následující návod je uzpůsobený na Ubuntu; měl by fungovat i pro Linux Mint. V dalších distribucích (Debian, Arch Linux, Fedora) mohou být odchylky.
+*Poznámka:* Rozkladač klávesnice je implementovaný tak, že přepisuje rozložení klávesnice „Czech (QWERTY)“. Vezměte to na vědomí, pokud toto rozložení klávesnice používáte.
 
 ## 1. Nastavení požadovaného rozložení kláves
 
-Otevřete v textovém editoru přiložený soubor [vzor.txt](vzor.txt). Obsahuje funkční,
-ale nepříliš praktické rozložení klávesnice. Řádky reprezentují jednotlivé klávesy na
-vaší klávesnici − jsou uspořádány po řadách odshora dolů. Rozložení klávesnice definuje
+Otevřete soubor s definicí rozložení klávesnice ([vzor.txt](ukazky/vzor.txt) nebo jeho kopii)
+v textovém editoru. Řádky reprezentují jednotlivé klávesy na vaší klávesnici − jsou uspořádány
+po řadách odshora dolů. Rozložení klávesnice definuje
 význam pouze pro centrální části klávesnice, a to ještě bez kláves Tab, Caps Lock,
 Shift, Back Space, Enter apod. Prostě pouze čísla, písmena, speciální znaky a mezerník;
 funkční klávesy se nepředefinovávají.
@@ -40,15 +32,16 @@ Další čtyři sloupce definují, jaký znak se vypíše, když stisknete (v t
 * pravý Alt + danou klávesu
 * pravý Alt + Shift + danou klávesu
 
-Většinu znaků (včetně náročných UCS znaků) zadáte prostě jako jeden znak.
+Většinu znaků (včetně náročných UCS znaků nebo emoji) zadáte prostě jako jeden znak.
 Tento znak můžete okopírovat z nějaké HTML stránky, nebo třeba ze systémové Mapy znaků.
-Takto si můžete složit znaky ruské, řecké, arabské a latinské (a možná i emoji)
+Takto si můžete složit znaky ruské, řecké, arabské a latinské i většinu emoji
 do jednoho rozložení klávesnice.
 Bohužel je několik výjimek, které takto jednoduše zadat nejde:
 
-* *bílé znaky* − To je mezera a její různé druhy (tabulátor, krátká, dlouhá, nezlomitelná apod.) Obyčejnou mezeru zadáte kombinací „\\\_“, nezlomitelnou „\_nb“, en-space „\_en“ a em-space „\_em“. Tabulátor, pokud ho budete potřebovat, zadáte „\\t“. To vám nejspíš bude stačit.
-* *mrtvé klávesy* − To jsou klávesy, které po stisknutí nic nevypíšou, ale počkají na další znak a pak se s ním skombinují. Ty se zadávají dvouznakovou kombinací, kde první znak je + a druhý znak je znak, který se vypíše jako kombinace dané mrtvé klávesy s obyčejnou mezerou. V češtině je potřeba pouze čárka („+'“), háček („+¯“) a případně kroužek („+°“). Další podporované mrtvé klávesy uvedu v tabulce; zatím je najdete ve [zdrojovém kódu](zprac.sh) pod komentářem „# Mrtvé klávesy:“.
-* *řídicí znaky* − Tyto se většinou v normálních rozloženích klávesnice nevyskytují, ale je možné je tam přidat. Jsou to: konec řádku (Enter) „\\n“, Escape („\\e“) a Back Space („\\b“).
+* *bílé znaky* − To je mezera a její různé druhy, viz níže uvedenou tabulku.
+* *mrtvé klávesy* − To jsou klávesy, které po stisknutí nic nevypíšou, ale počkají na další znak a pak se s ním skombinují. Viz níže uvedenou tabulku.
+* *emoji tvořené sekvencí více znaků Unicode* – Toto jsou zejména emoji s různými odstíny barvy pleti; obvykle však lze použít jejich základní (žlutou) formu.
+* *řídicí znaky* − Tyto se většinou v normálních rozloženích klávesnice nevyskytují a nejspíš je budete potřebovat. Pokud ano, viz níže uvedenou tabulku.
 
 Všechny sloupce musejí být vyplněny. Pokud nechcete, aby daná kombinace kláves cokoliv dělala, prostě na její místo napište klíčové slovo „nic“.
 
@@ -56,43 +49,56 @@ Příklad (nesmyslný):
 
 `Y   q   \  _em    +°`
 
-V uvedeném případě klávesa Y (podle anglického rozložení − to znamená ta mezi klávesami T a U) normálně napíše „q“, se Shiftem napíše zpětné lomítko, s pravým Alt vypíše mezeru o šířce písmene M a se Shiftem a pravým Alt dohromady nevypíše nic, ale když po ní stisknete klávesu, která by normálně vypsala „u“, vypíše se pak „ů“. (Snad tušíte proč.)
+V uvedeném případě klávesa Y (podle anglického rozložení − to znamená ta mezi klávesami T a U) normálně napíše „q“, se Shiftem napíše zpětné lomítko, s pravým Alt vypíše mezeru o šířce písmene M a se Shiftem a pravým Alt dohromady nevypíše nic, ale když po ní stisknete klávesu, která by normálně vypsala „u“, vypíše se pak „ů“.
 
-## 2. Spustit rozkladač
+### Tabulka mrtvých kláves
 
-Spusťte tyto příkazy a kontrolujte, zda při nich nenastaly chyby:
+| symbol | anglický název | popis | příklad písmene |
+| --- | :-- | :--- | --- |
+| +ˇ | caron | **háček** | š |
+| +' | acute | **čárka** (česká) | é |
+| +° | abovering | **kroužek** | ů |
+| +" | diaeresis | dvojitá tečka | ö |
+| +` | grave | zpětná čárka | à |
+| +^ | circumflex | stříška | â |
+| +¯ | macron | rovná čárka | ā |
+| +˙ | abovedot | tečka | ȧ |
+| +¸ | cedilla | ? | ş |
+| +~ | tilde | vlnovka | ã |
+| +˘ | breve | oblý háček | ă |
+| +˛ | ogonek | ocásek | ą |
+| +˝ | doubleacute | dvojitá čárka | ő |
 
-`bash rozkladac.sh <vzor.txt >faze2.txt`<br>
-`gawk '/^xkb_symbols "qwerty" \{/ {p=1} !p {print} p && /^\};$/ {p = 0; system("cat faze2.txt");}' /usr/share/X11/xkb/symbols/cz >cz`
+### Tabulka mezer
 
-Výstupem uvedených příkazů je soubor „cz“, který obsahuje vaše původní systémová
-česká rozložení klávesnice s tím, že rozložení „cz/qwerty“ je v něm přepsané
-novým rozložením, které jste definovali.
-Ve skutečnosti je možné do systému přidat úplně nové rozložení, ale je to
-zbytečně komplikované; přepsat stávající je snazší.
+| symbol | název | popis |
+| --- | :--- | :--- |
+| \\\_ | **mezera** | obyčejná mezera |
+| \_nb | nezlomitelná mezera | nezlomitelná mezera (v HTML &amp;nbsp;) |
+| \_en | en-space | mezera o šířce písmene „n“ |
+| \_em | em-space | mezera o šířce písmene „m“ |
+| \\t | tabulátor | tabulátor (bude se chovat jako klávesa „TAB“) |
 
-## 3. Nainstalovat rozložení do systému
+### Tabulka řídicích znaků
 
-Před tímto krokem doporučuji vytvořit si zálohu souboru „/usr/share/X11/xkb/symbols/cz“, abyste ho mohli v případě potřeby obnovit do původního tvaru. Tuto zálohu si vytvoříte např. takto:
+| symbol | název | význam |
+| --- | :--- | :--- |
+| \\n | Enter | vloží konec řádky nebo potvrdí volbu |
+| \\e | Esc | zavře menu apod. |
+| \\b | BackSpace | smaže znak vlevo od kurzoru |
 
-`cat /usr/share/X11/xkb/symbols/cz >puvodni-cz`
+## 2. Spuštění Rozkladače klávesnice
 
-Nyní můžete přistoupit k instalaci nového souboru „cz“:
+V adresáři se souborem „rozkladac“ spusťte tento příkaz (za názvy souborů dosaďte odpovídající názvy):
 
-`sudo tee /usr/share/X11/xkb/symbols/cz <cz >/dev/null`
+`./rozkladac zdrojový-soubor cílový-soubor`
 
-Poznámka: provedené změny se ztratí s každou aktualizací balíčku „xkb-data“.
-Proto si vždy ponechte i svoji kopii „cz“, abyste ji případně mohli znovu nainstalovat.
-Pokud se proti nechtěné aktualizaci chcete zabezpečit, použijte také:
+Pokud zpracování proběhlo úspěšně, byl vytvořen cílový soubor, který obsahuje rozložení klávesnice
+ve formátu, kterému rozumí váš systém. Toto rozložení je následně potřeba nainstalovat:
 
-`sudo apt-get hold xkb-data`
+`sudo tee /usr/share/X11/xkb/symbols/cz <cílový-soubor >/dev/null`
 
-(Pokročilejším uživatelům doporučuji jako lepší řešení odklonění souboru;
-to, zda jste na to dostatečně pokročilý uživatel, poznáte podle toho, že víte, o co jde.)
-
-## 4. Jednorázově rozložení aktivovat a vyzkoušet
-
-Nainstalované rozložení aktivujete tímto příkazem:
+Dalším krokem je si je jednorázově vyzkoušet. Nové rozložení aktivujete příkazem:
 
 `setxkbmap cz qwerty`
 
@@ -100,10 +106,12 @@ Pokud se z nějakého důvodu budete potřebovat vrátit k normálnímu česk�
 
 `setxkbmap cz`
 
-## 5. Nastavit nové rozložení jako výchozí
+Pokud budete chtít nové rozložení nastavit jako výchozí pro celý systém, musíte nastavit jako výchozí rozložení „Czech − Czech (QWERTY)“ (cz/qwerty). Na Ubuntu a od něj odvozených operačních systémech to uděláte tak, že zadáte příkaz `sudo dpkg-reconfigure keyboard-configuration` a v následujících oknech první dotaz potvrdíte beze změny, na druhé obrazovce vyberte volbu „Czech“, na třetí „Czech − Czech (QWERTY)“; zbylé dotazy potvrďte beze změny.
 
-Pokud se vám nové rozložení líbí a nemáte již nastavené jako výchozí rozložení „Česky (QWERTY)“, učiníte to takto:
+*Poznámka:* provedené změny se mohou ztratit s aktualizací systému, resp. jeho balíčků; v Debianu, Ubuntu apod. můžete aktualizaci rozložení klávesnic zakázat příkazem:
 
-`sudo dpkg-reconfigure keyboard-configuration`
+`sudo apt-mark hold xkb-data`
 
-První dotaz potvrďte beze změny, na druhé obrazovce vyberte volbu „Czech“, na třetí „Czech − Czech (QWERTY)“; ostatní dotazy potvrďte beze změny.
+Pokud byste někdy v budoucnu chtěli zákaz aktualizace zrušit, pomůže vám tento příkaz:
+
+`sudo apt-get reinstall xkb-data`

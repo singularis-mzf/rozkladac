@@ -1,0 +1,70 @@
+#!/bin/bash
+#
+# Rozkladač klávesnice – Vytváří rozložení klávesnice pro linux
+# Copyright (C) 2020 Singularis <singularis@volny.cz>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, version 2 of the License only.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+podrobnosti=2
+verze=1.0
+zacatek="rozkladac: "
+export czsoubor="/usr/share/X11/xkb/symbols/cz"
+
+set -e
+
+function printf0 () { test $podrobnosti -lt 0 || printf "$@" >&2; }
+function printf1 () { test $podrobnosti -lt 1 || printf "$@" >&2; }
+function printf2 () { test $podrobnosti -lt 2 || printf "$@" >&2; }
+
+# printf0 - jen chyby
+# printf1 - obvyklé výpisy
+# printf2 - podrobné ladicí výpisy
+
+if test $# -ne 2
+then
+    if test $# -ne 1 || test "$1" != "--help" -a "$1" != "--version"
+    then
+        printf0 %s\\n "${zacatek}Chybný počet parametrů. Pro podrobnější informace spusťte „./rozkladac --help“."
+    fi
+    if test "$1" = "--version"
+    then
+        printf %s\\n "Rozkladač klávesnice ${verze}" "Copyright © 2020 Singularis" "This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, version 2 of the License only."
+        exit
+    fi
+    cat << 'KONEC'
+Rozkladač klávesnice – Vytváří rozložení klávesnice pro linux
+Použití:
+    ./rozkladac zdrojový-soubor cílový-soubor
+Instrukce pro vytvoření a úpravu zdrojového souboru najdete v přiloženém souboru cti-me.md.
+KONEC
+    exit
+fi
+
+printf2 'Kontrola verze Perlu...\n'
+perl -CSLA -Mv5.26 -Mstrict -Mwarnings -Mutf8 -MEnglish -e ''
+printf2 'Kontrola přítomnosti a čitelnosti českého rozložení klávesnice...\n'
+if ! egrep -q '^xkb_symbols "qwerty" \{' -- "$czsoubor"
+then
+    printf0 %s\\n "${zacatek}Soubor $czsoubor nebyl nalezen, má neznámý formát nebo nastala jiná s ním související chyba." \
+        " Pokud myslíte, že je to omyl, vyplňte prosím chybové hlášení v repozitáři https://github.com/singularis-mzf/rozkladac ."
+    exit 1
+fi
+
+printf2 'Překlad rozložení klávesnice...\n'
+perl -CSLA -Mstrict -Mwarnings -Mutf8 -MEnglish -- vnitrnosti/rozkladac.pl < "$1" > "$2" 3< "$czsoubor"
+
+printf2 'Vytvoření zálohy stávajícího obsahu...\n'
+test -e cz.zaloha || cat -- "$czsoubor" > cz.zaloha
+
+printf1 'Hotovo.\n'

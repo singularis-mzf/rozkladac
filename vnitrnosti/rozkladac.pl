@@ -1,4 +1,4 @@
-# Rozkladač klávesnice – Vytváří rozložení klávesnice pro Linux
+# Rozkladač klávesnice – Vytváří rozložení klávesnice pro linux
 # Copyright (C) 2020 Singularis <singularis@volny.cz>
 #
 # This program is free software; you can redistribute it and/or modify
@@ -103,7 +103,6 @@ my %klíčová_slova = (
         +¯  dead_macron
         +¸  dead_cedilla
         +~  dead_tilde
-        +ˇ  dead_caron
         +^  dead_circumflex
         +˘  dead_breve
         +°  dead_abovering
@@ -145,20 +144,24 @@ my @výstup = (
 );
 
 my $stdin = \*STDIN;
+my $cz = undef;
 my $řádek;
 my $číslo_řádku = 0;
+
+open($cz, "<&=3");
 
 while (defined($řádek = readline($stdin)))
 {
     chomp($řádek);
     ++$číslo_řádku;
-    next if ($řádek !~ /^[^# \t]/);
+
+    next if ($řádek !~ /^[^# \t]/); # přeskočit komentáře
 
     my @sloupce = split(/[ \t]+/, $řádek);
 
     # Kontroly:
     scalar(@sloupce) >= 5
-        or die("Příliš málo sloupců na řádku ${číslo_řádku}: ${řádek}");
+        or die("Příliš málo sloupců na řádce ${číslo_řádku}: ${řádek}");
     exists $názvy_kláves{$sloupce[0]}
         or die("Neznámé označení klávesy: ".$sloupce[0]);
 
@@ -174,7 +177,6 @@ while (defined($řádek = readline($stdin)))
         } else {
             # jednotlivý znak
             my $n = ord($sloupce[$i]);
-            #print("\nDEBUG: znak '".$sloupce[$i]."': ord = ${n}\n");#...
             if ($n < 33 || (128 <= $n && $n <= 159)) {
                 die("Řídicí znaky Unicode (kromě Delete) nejsou povoleny! (Chyba na řádce ${číslo_řádku})");
             }
@@ -189,4 +191,13 @@ while (defined($řádek = readline($stdin)))
     push(@výstup, sprintf("    key <%s> { [ %s, %s, %s, %s ] };", @sloupce));
 }
 push(@výstup, "", "    include \"level3(ralt_switch)\"", "};");
+while (defined($řádek = readline($cz)) && !($řádek =~ /^xkb_symbols "qwerty" \{/))
+{
+    printf("%s", $řádek);
+}
 printf("%s\n", join("\n", @výstup));
+while (defined($řádek = readline($cz)) && $řádek ne "};\n") {}
+while (defined($řádek = readline($cz)))
+{
+    printf("%s", $řádek);
+}
