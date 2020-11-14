@@ -65,7 +65,7 @@ V uvedeném případě klávesa Y (podle anglického rozložení − to znamen�
 | +^ | circumflex | stříška | â |
 | +¯ | macron | rovná čárka | ā |
 | +˙ | abovedot | tečka | ȧ |
-| +¸ | cedilla | ? | ş |
+| +¸ | cedilla | háček na patě (sedil) | ş |
 | +~ | tilde | vlnovka | ã |
 | +˘ | breve | oblý háček | ă |
 | +˛ | ogonek | ocásek | ą |
@@ -76,6 +76,7 @@ V uvedeném případě klávesa Y (podle anglického rozložení − to znamen�
 | symbol | název | popis |
 | --- | :--- | :--- |
 | \\\_ | **mezera** | obyčejná mezera |
+| \_sp | mezera | obyčejná mezera |
 | \_nb | nezlomitelná mezera | nezlomitelná mezera (v HTML &amp;nbsp;) |
 | \_en | en-space | mezera o šířce písmene „n“ |
 | \_em | em-space | mezera o šířce písmene „m“ |
@@ -124,6 +125,16 @@ Pokud byste někdy v budoucnu chtěli zákaz aktualizace zrušit, pomůže vám
 
 ## Tipy k tvorbě rozložení klávesnice
 
-Doporučuji se vyvarovat originality. Existující rozložení klávesnice jsou navržena víceméně rozumně, takže se vyplatí jich držet a spíš je jen opatrně „mixovat“
+Doporučuji se vyvarovat originality. Existující rozložení klávesnice jsou navržena víceméně rozumně, takže se vyplatí jich držet a spíš je „mixovat“
 než se snažit vymyslet zcela nové rozložení klávesnice. Pokud si zvyknete na netypické rozložení klávesnice, budete mít v budoucnu velké problémy s ovládáním
 systémů, kam si svoje rozložení nebudete moci nainstalovat, např. školních či firemních.
+
+## Přiložená ukázková rozložení
+
+K projektu jsou přiložena následující ukázková rozložení; kromě *moje.txt* nejsou příliš praktická, lepší bude, když si sestavíte takové, na jaké jste zvyklý/á.
+
+| rozložení | popis |
+| :--- | :--- |
+| [vzor.txt](ukazy/vzor.txt) | Jednoduché vzorové rozložení, které umí jen základní klávesy. |
+| [moje.txt](ukazky/moje.txt) | „Moje rozložení“ – rozložení, které používám já. |
+| [mix.txt](ukazky/mix.txt) | ?  |
