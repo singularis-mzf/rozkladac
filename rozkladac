@@ -67,4 +67,4 @@ perl -CSLA -Mstrict -Mwarnings -Mutf8 -MEnglish -- vnitrnosti/rozkladac.pl < "$1
 printf2 'Vytvoření zálohy stávajícího obsahu...\n'
 test -e cz.zaloha || cat -- "$czsoubor" > cz.zaloha
 
-printf1 'Hotovo.\n'
+printf1 'Překlad proběhl úspěšně. Nové rozložení můžete nainstalovat příkazem:\n  sudo install -T -m 644 %s /usr/share/X11/xkb/symbols/cz\nPoté si můžete nové rozložení vyzkoušet příkazem:\n  setxkbmap cz qwerty\n' "${2@Q}"
